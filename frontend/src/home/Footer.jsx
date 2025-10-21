@@ -102,7 +102,7 @@ function Footer() {
       >
         <small className="text-secondary">
           © 2025 <span className="text-warning">VoteMate</span>. All rights reserved. |
-          Developed by <span className="text-white">Ashik</span>.
+          Developed by <span className="text-white">Ashik A</span>.
         </small>
       </div>
     </footer>

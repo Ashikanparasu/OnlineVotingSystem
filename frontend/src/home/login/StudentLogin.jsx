@@ -11,14 +11,11 @@ function StudentLogin() {
   const handleSendOtp = () => {
     if (email.trim() !== "") {
       setOtpSent(true);
-    } else {
-      setOtpSent(false);
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add OTP verification logic later
   };
 
   return (
@@ -28,44 +25,47 @@ function StudentLogin() {
         width: "100%",
         height: "100vh",
         background: "transparent",
-        paddingRight: "10%",
+        paddingRight: "8%",
       }}
     >
       <div
-  className="login-card"
-  style={{
-    background: "rgba(255, 255, 255, 0.08)", // slightly lighter glass
-    backdropFilter: "blur(25px)", // softer blur for glassy look
-    border: "1px solid rgba(255, 255, 255, 0.15)",
-    borderRadius: "20px",
-    boxShadow: "0 0 25px rgba(255, 255, 255, 0.05)",
-    padding: "3.5rem 3rem",
-    width: "480px",
-    color: "#fff",
-  }}
->
-
-        <h2
+        className="login-card"
+        style={{
+          background: "transparent", // ✅ fully transparent
+          border: "none",
+          borderRadius: "0",
+          boxShadow: "none",
+          padding: "4rem 4rem", // ✅ increased padding
+          width: "550px", // ✅ increased width
+          color: "#fff",
+        }}
+      >
+        <h1
           className="text-center mb-4"
-          style={{ color: "#fff", fontWeight: "700" }}
+          style={{
+            color: "#fff",
+            fontWeight: "700",
+            fontSize: "2.2rem", // ✅ slightly larger heading
+          }}
         >
           Student Login
-        </h2>
+        </h1>
 
         <form onSubmit={handleSubmit}>
-          {/* Email Input + Send OTP Button */}
+          {/* Email Input + Send OTP */}
           <div
             className="mb-3 position-relative d-flex"
-            style={{ alignItems: "center", gap: "10px" }}
+            style={{ alignItems: "center", gap: "12px" }}
           >
             <div style={{ position: "relative", flex: 1 }}>
               <FaEnvelope
                 style={{
                   position: "absolute",
                   top: "50%",
-                  left: "12px",
+                  left: "15px",
                   transform: "translateY(-50%)",
-                  color: "#ccc",
+                  color: "#fff",
+                  opacity: 0.9,
                 }}
               />
               <input
@@ -76,9 +76,10 @@ function StudentLogin() {
                 className="form-control bg-transparent text-white ps-5"
                 required
                 style={{
-                  border: "1px solid rgba(255,255,255,0.3)",
-                  borderRadius: "10px",
-                  height: "45px",
+                  border: "1px solid rgba(255,255,255,0.7)",
+                  borderRadius: "12px",
+                  height: "55px", // ✅ taller input
+                  fontSize: "1rem",
                   color: "#fff",
                 }}
               />
@@ -92,8 +93,9 @@ function StudentLogin() {
                 color: "#000",
                 fontWeight: "600",
                 borderRadius: "10px",
-                padding: "10px 15px",
-                height: "45px",
+                padding: "10px 20px",
+                height: "55px", // ✅ match input height
+                fontSize: "1rem",
                 cursor: "pointer",
                 transition: "0.3s",
               }}
@@ -109,9 +111,9 @@ function StudentLogin() {
             <p
               style={{
                 color: "#FFD700",
-                fontSize: "0.9rem",
-                marginTop: "-5px",
-                marginBottom: "15px",
+                fontSize: "1rem",
+                marginTop: "0px",
+                marginBottom: "20px",
                 textAlign: "left",
               }}
             >
@@ -125,9 +127,10 @@ function StudentLogin() {
               style={{
                 position: "absolute",
                 top: "50%",
-                left: "12px",
+                left: "15px",
                 transform: "translateY(-50%)",
-                color: "#ccc",
+                color: "#fff",
+                opacity: 0.9,
               }}
             />
             <input
@@ -138,9 +141,10 @@ function StudentLogin() {
               className="form-control bg-transparent text-white ps-5"
               required
               style={{
-                border: "1px solid rgba(255,255,255,0.3)",
-                borderRadius: "10px",
-                height: "45px",
+                border: "1px solid rgba(255,255,255,0.7)",
+                borderRadius: "12px",
+                height: "55px", // ✅ taller input
+                fontSize: "1rem",
                 color: "#fff",
               }}
             />
@@ -154,8 +158,9 @@ function StudentLogin() {
               backgroundColor: "#FFD700",
               color: "#000",
               fontWeight: "600",
-              borderRadius: "10px",
-              height: "45px",
+              borderRadius: "12px",
+              height: "55px",
+              fontSize: "1.1rem",
               transition: "0.3s",
             }}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#e6c200")}
@@ -170,7 +175,7 @@ function StudentLogin() {
           className="text-center mt-4"
           style={{
             color: "#fff",
-            fontSize: "0.9rem",
+            fontSize: "1rem",
           }}
         >
           ←{" "}
