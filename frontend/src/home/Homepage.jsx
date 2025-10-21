@@ -1,55 +1,48 @@
-import React from 'react';
-import Nav from './Nav.jsx';
-import Main from './Main.jsx';
-import Footer from './Footer.jsx';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Nav from "./Nav.jsx";
+import Main from "./Main.jsx";
+import StudentLogin from "./login/StudentLogin.jsx";
+import AdminLogin from "./login/AdminLogin.jsx";
+import Footer from "./Footer.jsx";
 
 function Homepage() {
   return (
-    <div
-      style={{
-        margin: 0,
-        padding: 0,
-        overflowX: 'hidden',
-        backgroundColor: '#000',
-        color: '#fff',
-      }}
-    >
-      {/* Fullscreen Background Section */}
+    <div style={{ width: "100%", color: "#fff" }}>
+      {/* ✅ Animated Background Image Section */}
       <section
+        className="animated-background"
         style={{
-          backgroundImage: 'url(/Background.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: '100vh',
-          width: '100vw',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          position: 'relative',
+          width: "100%",
+          height: "100vh", // full-screen background area
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Navbar at top */}
-        <div style={{ width: '100%' }}>
-          <Nav />
-        </div>
+        <Nav />
 
-        {/* Main content center */}
-        <div
+        <main
           style={{
             flexGrow: 1,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            minHeight: "70vh",
           }}
         >
-          <Main />
-        </div>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/student-login" element={<StudentLogin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
+          </Routes>
+        </main>
       </section>
 
-      {/* Footer below background */}
+      {/* ✅ Footer starts after image */}
       <Footer />
     </div>
   );
