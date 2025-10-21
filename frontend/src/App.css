@@ -1,10 +1,35 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Reset everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* Make sure body and root fill full width and height */
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  overflow-x: hidden;
+}
+
+/* Optional: text centering if you want */
+body {
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+/* Remove default root constraints */
+#root {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* You can keep logo hover styles if needed */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -18,21 +43,7 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
+/* Keep card and docs styling if you still use them */
 .card {
   padding: 2em;
 }
