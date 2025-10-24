@@ -5,6 +5,8 @@ import Main from "./Main.jsx";
 import StudentLogin from "./login/StudentLogin.jsx";
 import AdminLogin from "./login/AdminLogin.jsx";
 import Footer from "./Footer.jsx";
+import '../index.css';
+
 
 function Homepage() {
   return (

@@ -1,0 +1,8 @@
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\config\CorsConfig.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\controller\AuthController.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\dto\ApiResponse.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\dto\SendOtpRequest.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\dto\VerifyOtpRequest.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\service\OtpService.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\util\Masker.java
+P:\GitHub\OnlineVotingSystem\backend\src\main\java\com\votemate\VoteMateApplication.java

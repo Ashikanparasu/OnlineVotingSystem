@@ -1,93 +1,90 @@
-/* ✅ Full-page animated background that stays behind everything */
+/* ============ GLOBAL RESET ============ */
 html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%;
-  min-height: 100%;
+  height: 100%;
   overflow-x: hidden;
   background: transparent;
 }
 
-/* Background layer */
+/* ============ BACKGROUND IMAGE ============ */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("/Background.jpg") center/cover no-repeat fixed;
-  animation: zoomBG 25s ease-in-out infinite alternate;
-  filter: brightness(0.9);
+  background: url("/Background.jpg") center/cover no-repeat;
+  animation: zoomAndPan 30s ease-in-out infinite;
+  filter: brightness(1.1) contrast(1.1);
   z-index: -2;
 }
 
-/* Gradient overlay */
+/* Enhanced background animation */
+@keyframes zoomAndPan {
+  0% {
+    transform: scale(1) translate(0, 0);
+    filter: brightness(1.1) contrast(1.1);
+  }
+  25% {
+    transform: scale(1.1) translate(-2%, -1%);
+    filter: brightness(1.15) contrast(1.15);
+  }
+  50% {
+    transform: scale(1.15) translate(1%, 2%);
+    filter: brightness(1.2) contrast(1.2);
+  }
+  75% {
+    transform: scale(1.1) translate(2%, -2%);
+    filter: brightness(1.15) contrast(1.15);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+    filter: brightness(1.1) contrast(1.1);
+  }
+}
+
+/* ============ SOFT OVERLAY ============ */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background: linear-gradient(
-    120deg,
-    rgba(255, 215, 0, 0.15),
-    rgba(255, 0, 150, 0.1),
-    rgba(0, 150, 255, 0.15)
+    45deg,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.4)
   );
-  background-size: 300% 300%;
-  animation: moveGradient 12s ease-in-out infinite;
-  pointer-events: none;
+  animation: overlayPulse 15s ease-in-out infinite;
   z-index: -1;
+  backdrop-filter: blur(1px);
 }
 
-/* Zoom animation */
-@keyframes zoomBG {
-  0% { background-size: 100%; }
-  100% { background-size: 110%; }
+/* Overlay animation */
+@keyframes overlayPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.4; }
 }
 
-/* Gradient animation */
-@keyframes moveGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Make sure page content is above background */
-nav, main, footer {
+/* ============ LOGIN PAGE ============ */
+.login-page {
   position: relative;
-  z-index: 5;
-}
-/* ✅ Animated full background (no tint) */
-.animated-background {
-  background-image: url("/Background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  animation: zoomBG 15s ease-in-out infinite alternate;
-}
-
-
-/* Smooth zoom-in/out effect */
-@keyframes zoomBG {
-  0% {
-    background-size: 100%;
-  }
-  100% {
-    background-size: 110%;
-  }
-}
-
-/* Ensure page layout fills properly */
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
+  height: 100vh;
   width: 100%;
-  height: 100%;
-  background: #000; /* only seen below footer */
-  overflow-x: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 8%;
 }
 
+/* Diagnostic: ensure any full-screen section is semi-transparent so global bg shows through */
+.animated-background {
+  background: rgba(255,255,255,0.02); /* very subtle, for testing */
+}
+
+/* Card animation (slide-in) */
 .login-card {
   animation: fadeInRight 0.8s ease;
+  position: relative;
+  z-index: 5;
 }
 
 @keyframes fadeInRight {
@@ -101,15 +98,93 @@ body,
   }
 }
 
+/* Input focus glow */
 input:focus {
   outline: none !important;
   border-color: #ffd700 !important;
   box-shadow: 0 0 10px #ffd70080;
   transition: 0.3s ease;
 }
-input:focus {
-  outline: none !important;
-  border-color: #ffd700 !important;
-  box-shadow: 0 0 8px #ffd70070;
-  transition: 0.3s ease;
+/* ===== Admin Page Styling ===== */
+.admin-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/Background.jpg") center/cover no-repeat fixed;
+  position: relative;
+}
+
+.admin-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6); /* dark overlay for readability */
+  z-index: 0;
+}
+
+.admin-box {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+.admin-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.admin-box p {
+  font-size: 1.1rem;
+  color: #ddd;
+}
+/* ===== Admin Page Styles ===== */
+.admin-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/Background.jpg") center/cover no-repeat fixed;
+  position: relative;
+}
+
+/* Add a dark overlay for better text readability */
+.admin-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+
+/* Center box with glass effect */
+.admin-box {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  color: white;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+}
+
+.admin-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.admin-box p {
+  font-size: 1.1rem;
+  color: #ddd;
 }

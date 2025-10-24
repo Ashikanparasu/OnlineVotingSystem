@@ -1,31 +1,54 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEnvelope, FaKey } from "react-icons/fa";
+import axios from "axios";
 
 function AdminLogin() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleSendOtp = () => {
-    if (email.trim() !== "") {
-      setOtpSent(true);
-      alert("OTP sent to your admin email (demo: 1234)");
-    } else {
-      alert("Please enter your admin email");
+  // ✅ Send OTP to Admin Email (connects to backend)
+  const handleSendOtp = async () => {
+    try {
+      if (!email.trim()) {
+        setError("Please enter your email.");
+        return;
+      }
+
+      const response = await axios.post("http://localhost:8080/api/admin/send-otp", { email });
+
+      if (response.status === 200) {
+        setOtpSent(true);
+        setError("");
+      } else {
+        setError("Failed to send OTP. Try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error sending OTP. Check backend connection.");
     }
   };
 
-  const handleSubmit = (e) => {
+  // ✅ Verify OTP (connects to backend)
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/admin/verify-otp", {
+        email,
+        otp,
+      });
 
-    // Demo OTP check (you can replace with backend validation later)
-    if (otp === "1234") {
-      alert("OTP Verified Successfully ✅");
-      navigate("/admin-page"); // Redirect to AdminPage.jsx
-    } else {
-      alert("Invalid OTP ❌");
+      if (response.status === 200 && response.data === true) {
+        navigate("/admin-page"); // ✅ redirect on success
+      } else {
+        setError("Invalid OTP. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error verifying OTP.");
     }
   };
 
@@ -62,8 +85,8 @@ function AdminLogin() {
           Admin Login
         </h1>
 
-        <form onSubmit={handleSubmit}>
-          {/* Email Input + Send OTP */}
+        <form onSubmit={handleVerifyOtp}>
+          {/* Email + Send OTP */}
           <div
             className="mb-3 position-relative d-flex"
             style={{ alignItems: "center", gap: "12px" }}
@@ -98,8 +121,9 @@ function AdminLogin() {
             <button
               type="button"
               onClick={handleSendOtp}
+              disabled={otpSent}
               style={{
-                backgroundColor: "#FFD700",
+                backgroundColor: otpSent ? "gray" : "#FFD700",
                 border: "none",
                 color: "#000",
                 fontWeight: "600",
@@ -110,75 +134,73 @@ function AdminLogin() {
                 cursor: "pointer",
                 transition: "0.3s",
               }}
-              onMouseOver={(e) => (e.target.style.backgroundColor = "#e6c200")}
-              onMouseOut={(e) => (e.target.style.backgroundColor = "#FFD700")}
             >
-              Send OTP
+              {otpSent ? "Sent" : "Send OTP"}
             </button>
           </div>
 
-          {/* OTP Sent Message */}
+          {/* OTP Input */}
           {otpSent && (
+            <div className="mb-4 position-relative">
+              <FaKey
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "15px",
+                  transform: "translateY(-50%)",
+                  color: "#fff",
+                  opacity: 0.9,
+                }}
+              />
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter OTP"
+                className="form-control bg-transparent text-white ps-5"
+                required
+                style={{
+                  border: "1px solid rgba(255,255,255,0.7)",
+                  borderRadius: "12px",
+                  height: "55px",
+                  fontSize: "1rem",
+                  color: "#fff",
+                }}
+              />
+            </div>
+          )}
+
+          {/* Error Message */}
+          {error && (
             <p
               style={{
-                color: "#FFD700",
-                fontSize: "1rem",
-                marginTop: "0px",
-                marginBottom: "20px",
-                textAlign: "left",
+                color: "#ff6961",
+                textAlign: "center",
+                marginBottom: "10px",
               }}
             >
-              OTP sent to your admin email
+              {error}
             </p>
           )}
 
-          {/* OTP Input */}
-          <div className="mb-4 position-relative">
-            <FaKey
+          {/* Submit Button */}
+          {otpSent && (
+            <button
+              type="submit"
+              className="btn w-100 mt-3"
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "15px",
-                transform: "translateY(-50%)",
-                color: "#fff",
-                opacity: 0.9,
-              }}
-            />
-            <input
-              type="text"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              placeholder="Enter OTP"
-              className="form-control bg-transparent text-white ps-5"
-              required
-              style={{
-                border: "1px solid rgba(255,255,255,0.7)",
+                backgroundColor: "#FFD700",
+                color: "#000",
+                fontWeight: "600",
                 borderRadius: "12px",
                 height: "55px",
-                fontSize: "1rem",
-                color: "#fff",
+                fontSize: "1.1rem",
+                transition: "0.3s",
               }}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            className="btn w-100 mt-3"
-            style={{
-              backgroundColor: "#FFD700",
-              color: "#000",
-              fontWeight: "600",
-              borderRadius: "12px",
-              height: "55px",
-              fontSize: "1.1rem",
-              transition: "0.3s",
-            }}
-            onMouseOver={(e) => (e.target.style.backgroundColor = "#e6c200")}
-            onMouseOut={(e) => (e.target.style.backgroundColor = "#FFD700")}
-          >
-            Submit
-          </button>
+            >
+              Verify OTP
+            </button>
+          )}
         </form>
 
         {/* Back to Home */}
